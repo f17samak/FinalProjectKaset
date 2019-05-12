@@ -10,7 +10,20 @@ class Window extends JFrame{
     public static ArrayList<ArrayList<SquareData>> Grid;
     public static int width = 20;
     public static int height = 20;
+
+
+    //Used for singleton
+    private static Window instance;
+
+    //This is so only one instance of the game can run!
+    public static synchronized Window getInstance(){
+        if(instance == null){
+            instance = new Window();
+        }
+        return instance;
+    }
     public Window(){
+
 
 
         // Creates the arraylist that'll contain the threads
