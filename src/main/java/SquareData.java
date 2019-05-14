@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.awt.Color;
+import java.util.Observable;
+import java.util.Observer;
 
-public class SquareData {
+public class SquareData  {
 
 
     //ArrayList that'll contain the colors
@@ -20,4 +22,6 @@ public class SquareData {
     public void lightMeUp(int c){
         square.ChangeColor(C.get(c));
     }
+
+
 }

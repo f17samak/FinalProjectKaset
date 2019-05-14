@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.List;
+
 
 
 //Controls all the game logic .. most important class in this project.
-public class ThreadsController extends Thread {
+public class ThreadsController extends Thread implements Observer {
     ArrayList<ArrayList<SquareData>> Squares= new ArrayList<ArrayList<SquareData>>();
     Tuple headSnakePos;
     int sizeSnake=3;
@@ -28,6 +30,8 @@ public class ThreadsController extends Thread {
         spawnFood(foodPosition);
 
     }
+
+
 
     //Important part :
     public void run() {
@@ -79,6 +83,7 @@ public class ThreadsController extends Thread {
 
     //Put food in a position and displays it
     private void spawnFood(Tuple foodPositionIn){
+
         Squares.get(foodPositionIn.x).get(foodPositionIn.y).lightMeUp(1);
     }
 
@@ -165,5 +170,15 @@ public class ThreadsController extends Thread {
                 cmpt--;
             }
         }
+
+
     }
+
+    public void update(ArrayList<ArrayList<SquareData>> Grid) {
+        checkCollision();
+    }
+
+
+
+
 }

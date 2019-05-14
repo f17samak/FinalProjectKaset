@@ -1,11 +1,11 @@
 import java.awt.GridLayout;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-
+import java.util.List;
 import javax.swing.JFrame;
 
 
-class Window extends JFrame{
+class Window extends JFrame implements Subject {
     private static final long serialVersionUID = -2542001418764869760L;
     public static ArrayList<ArrayList<SquareData>> Grid;
     public static int width = 20;
@@ -15,13 +15,19 @@ class Window extends JFrame{
     //Used for singleton
     private static Window instance;
 
+
+
     //This is so only one instance of the game can run!
     public static synchronized Window getInstance(){
         if(instance == null){
             instance = new Window();
+
         }
         return instance;
     }
+
+    private List<Observer> observers;
+
     public Window(){
 
 
@@ -29,6 +35,8 @@ class Window extends JFrame{
         // Creates the arraylist that'll contain the threads
         Grid = new ArrayList<ArrayList<SquareData>>();
         ArrayList<SquareData> data;
+
+
 
         // Creates Threads and its data and adds it to the arrayList
         for(int i=0;i<width;i++){
@@ -52,8 +60,9 @@ class Window extends JFrame{
 
         // initial position of the snake
         Tuple position = new Tuple(10,10);
-        // passing this value to the controller
         ThreadsController c = new ThreadsController(position);
+        // passing this value to the controller
+         //c = new ThreadsController(position);
         //Let's start the game now..
         c.start();
 
@@ -65,6 +74,27 @@ class Window extends JFrame{
         //Tuple position2 = new Tuple(13,13);
         //ControlleurThreads c2 = new ControlleurThreads(position2);
         //c2.start();
+        observers = new ArrayList<Observer>();
+
+        notifyObservers(Grid);
 
     }
+
+    public void notifyObservers(ArrayList<ArrayList<SquareData>> Grid) {
+        for (Observer observer : observers)
+            observer.update(Grid);
+    }
+
+
+    public void registerObserver(Observer o) {
+        observers.add(o);
+    }
+
+
+    public void removeObserver(Observer o) {
+        observers.remove(o);
+    }
+
+
+
 }
