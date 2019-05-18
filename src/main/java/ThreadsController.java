@@ -69,6 +69,7 @@ public class ThreadsController extends Thread implements Observer {
             sizeSnake=sizeSnake+1;
             foodPosition = getValAleaNotInSnake();
 
+
             spawnFood(foodPosition);
         }
     }
@@ -88,6 +89,9 @@ public class ThreadsController extends Thread implements Observer {
     }
 
     //return a position not occupied by the snake
+
+
+
     private Tuple getValAleaNotInSnake(){
         Tuple p ;
         int ranX= 0 + (int)(Math.random()*19);
